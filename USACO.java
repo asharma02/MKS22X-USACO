@@ -194,13 +194,4 @@ public class USACO {
 
 
 
-
-
-
-  public static void main(String[] args) throws FileNotFoundException{
-    System.out.println(silver("ctravel.3.in"));
-  }
-
-
-
 }
