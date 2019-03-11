@@ -14,7 +14,7 @@ public class USACO {
     int[][] instruct = null;
     //use try catch for file not found
     try {
-      //get primary info
+      //get primary data
     File f = new File(filename); //initialize file
     Scanner scanner = new Scanner(f); //read file
     while (scanner.hasNextLine()) { //while there is another line
@@ -125,10 +125,10 @@ public class USACO {
 
      //get r, c, and steps
      String line = read.nextLine();
-     String[] info = line.split(" ", 3);
-     r = Integer.parseInt(info[0]);
-     c = Integer.parseInt(info[1]);
-     steps = Integer.parseInt(info[2]);
+     String[] data = line.split(" ", 3);
+     r = Integer.parseInt(data[0]);
+     c = Integer.parseInt(data[1]);
+     steps = Integer.parseInt(data[2]);
 
      //make two new arrays
      pasture = new String[r][c];
@@ -179,13 +179,13 @@ public class USACO {
                             newpasture2[i][j - 1] += newpasture2[i][j];
                          } //check for tree for all of the 4 directions you can go, if there is one, add the step from where you are at, to where you are checking
                      } catch (ArrayIndexOutOfBoundsException e) {}
-                     newpasture2[i][j] = 0; //set where you are to 0 if there are no trees
+                     newpasture2[i][j] = 0; //set where you are to 0 if there are no paths
                  }
              }
          }
          for (int i = 0; i < r; i++) {
              for (int j = 0; j < c; j++) {
-                 newpasture[i][j] = newpasture2[i][j];
+                 newpasture[i][j] = newpasture2[i][j]; //transfer the number of steps
              }
          }
      }
@@ -198,7 +198,7 @@ public class USACO {
 
 
   public static void main(String[] args) throws FileNotFoundException{
-    System.out.println(silver("ctravel.2.in"));
+    System.out.println(silver("ctravel.3.in"));
   }
 
 
