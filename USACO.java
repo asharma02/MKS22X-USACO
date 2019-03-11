@@ -112,54 +112,92 @@ public class USACO {
 
 //SILVER
   public static int silver(String filename) throws FileNotFoundException {
-     File file = new File(filename);
+     File file = new File(filename); //read file
      Scanner read = new Scanner(file);
 
+     //set varbles
      String[][] pasture;
      int[][] newpasture;
      int[][] newpasture2;
      int c;
      int r;
      int steps;
-     String line = read.nextLine();
-     String[] stringData = line.split(" ", 3);
-     r = Integer.parseInt(stringData[0]);
-     c = Integer.parseInt(stringData[1]);
-     steps = Integer.parseInt(stringData[2]);
 
+     //get r, c, and steps
+     String line = read.nextLine();
+     String[] info = line.split(" ", 3);
+     r = Integer.parseInt(info[0]);
+     c = Integer.parseInt(info[1]);
+     steps = Integer.parseInt(info[2]);
+
+     //make two new arrays
      pasture = new String[r][c];
      newpasture = new int[r][c];
      newpasture2 = new int[r][c];
 
+     //nextline past the baord
      for (int h = 0; h < r; h++) {
          line = read.nextLine();
          pasture[h] = line.split("");
      }
 
-     int startRow;
-     int startColumn;
-     int endRow;
-     int endColumn;
+     //read the start and end columns
+     int startr;
+     int startc;
+     int endr;
+     int endc;
      line = read.nextLine();
-     stringData = line.split(" ", 4);
-     startRow = Integer.parseInt(stringData[0]);
-     startColumn = Integer.parseInt(stringData[1]);
-     endRow = Integer.parseInt(stringData[2]);
-     endColumn = Integer.parseInt(stringData[3]);
+     data = line.split(" ", 4);
+     startr = Integer.parseInt(data[0]);
+     startc = Integer.parseInt(data[1]);
+     endr = Integer.parseInt(data[2]);
+     endc = Integer.parseInt(data[3]);
 
-
-
-
-     
+     newpasture[startr - 1][startc - 1] = 1; //set start to taken
+     newpasture2[startr - 1][startc - 1] = 1; //set the start to taken; -1 because to put it in array index form
+     for (int track = 0; track < steps; track++) { //track the number of steps you have taken, increase aat the same time
+         for (int i = 0; i < r; i++) {
+             for (int j = 0; j < c; j++) { //loop through the arrays
+                 if (newpasture[i][j] != 0) { //if where you're at isnt taken
+                     try {
+                         if (pasture[i + 1][j].contains(".")) { //if tree
+                           newpasture2[i + 1][j] += newpasture2[i][j]; //add the steps
+                         }
+                     } catch (ArrayIndexOutOfBoundsException e) {}
+                     try {
+                         if (pasture[i][j + 1].contains(".")) {
+                           newpasture2[i][j + 1] += newpasture2[i][j];
+                         }
+                     } catch (ArrayIndexOutOfBoundsException e) {}
+                     try {
+                         if (pasture[i - 1][j].contains(".")) {
+                           newpasture2[i - 1][j] += newpasture2[i][j];
+                         }
+                     } catch (ArrayIndexOutOfBoundsException e) {}
+                     try {
+                         if (pasture[i][j - 1].contains(".")) {
+                            newpasture2[i][j - 1] += newpasture2[i][j];
+                         } //check for tree for all of the 4 directions you can go, if there is one, add the step from where you are at, to where you are checking
+                     } catch (ArrayIndexOutOfBoundsException e) {}
+                     newpasture2[i][j] = 0; //set where you are to 0 if there are no trees
+                 }
+             }
+         }
+         for (int i = 0; i < r; i++) {
+             for (int j = 0; j < c; j++) {
+                 newpasture[i][j] = newpasture2[i][j];
+             }
+         }
+     }
+     return newpasture[endr - 1][endc - 1]; //get the number of steps where it is
   	}
 
 
 
-//SILVER HELPERS
 
 
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws FileNotFoundException{
     System.out.println(silver("ctravel.2.in"));
   }
 
