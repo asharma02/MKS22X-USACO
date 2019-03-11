@@ -136,7 +136,19 @@ public class USACO {
          pasture[h] = line.split("");
      }
 
-//        System.out.println(Arrays.deepToString(pasture));
+     int startRow;
+     int startColumn;
+     int endRow;
+     int endColumn;
+     line = read.nextLine();
+     stringData = line.split(" ", 4);
+     startRow = Integer.parseInt(stringData[0]);
+     startColumn = Integer.parseInt(stringData[1]);
+     endRow = Integer.parseInt(stringData[2]);
+     endColumn = Integer.parseInt(stringData[3]);
+
+
+
 
      
   	}
