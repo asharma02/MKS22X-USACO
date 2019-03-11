@@ -31,15 +31,17 @@ public class USACO {
         }
       }
 
-      int[][] stomp = new int[n][3];
+      int[][] instruct = new int[n][3];
         for (int i = 0; i < n; i++){
           line = scanner.nextLine().split(" ");
           for (int j = 0; j < 3; j++) {
-            stomp[i][j] = Integer.parseInt(line[j]);
+            instruct[i][j] = Integer.parseInt(line[j]);
           }
         }
       }
-
+      sink(map, instruct);
+      findElevation(map, e);
+      return volume(map);
     }
 
   catch (FileNotFoundException l){
@@ -49,6 +51,49 @@ public class USACO {
   }
 
 //HELPERS FOR bronze
+
+private static void sink(int[][] map, int[][] instruct){
+    for (int i = 0; i < instruct.length; i++){
+      int r = instruct[x][0];
+      int c = instruct[x][1];
+      int e = instruct[x][2];
+      int max = getMax(r, c, map);
+
+      int low = 0;
+      while (low < e){
+        for (int i = r; i < r+3; i++ ) {
+          for (int j = c; j < c+3; j++ ) {
+            if (map[i - 1][j - 1] >= max) map[i - 1][j - 1]--;
+          }
+        }
+        max = getMax(r, c, map);
+
+        low++;
+      }
+      return map;
+      }
+    }
+
+  private static int getMax(int r, int c, int[][] map){
+    int max = 0;
+    for (int i = r; i < r+3; i++){
+      for (int j = c ;j < c+3 ; j++ ) {
+        if (max < map[i - 1][j - 1]) max = map[i - 1][j - 1];
+      }
+    }
+    return max;
+  }
+
+  private static void findElevation(int[][] map, int e){
+    for (int x = 0; x < map.length; x++){
+      for (int y = 0; y < map[x].length; y++){
+        if (board[x][y] > e) board[x][y] = 0;
+        else board[x][y] = e - board[x][y];
+      }
+    }
+  }
+
+
 
 
 
