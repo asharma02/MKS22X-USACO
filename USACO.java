@@ -3,7 +3,7 @@ import java.io.*;
 
 public class USACO {
 
-
+//BRONZE
   public static int bronze(String filename) {
     //variables for row, col, final elevation, and number of instructs, and arrays
     int r = 0;
@@ -106,12 +106,49 @@ public class USACO {
   }
 
 
-  public static int silver(String filename){
-    return -1;
-  }
+
+
+
+
+//SILVER
+  public static int silver(String filename) throws FileNotFoundException {
+     File file = new File(filename);
+     Scanner read = new Scanner(file);
+
+     String[][] pasture;
+     int[][] newpasture;
+     int[][] newpasture2;
+     int c;
+     int r;
+     int steps;
+     String line = read.nextLine();
+     String[] stringData = line.split(" ", 3);
+     r = Integer.parseInt(stringData[0]);
+     c = Integer.parseInt(stringData[1]);
+     steps = Integer.parseInt(stringData[2]);
+
+     pasture = new String[r][c];
+     newpasture = new int[r][c];
+     newpasture2 = new int[r][c];
+
+     for (int h = 0; h < r; h++) {
+         line = read.nextLine();
+         pasture[h] = line.split("");
+     }
+
+//        System.out.println(Arrays.deepToString(pasture));
+
+     
+  	}
+
+
+
+//SILVER HELPERS
+
+
 
   public static void main(String[] args) {
-    System.out.println(bronze("makelake.5.in"));
+    System.out.println(silver("ctravel.2.in"));
   }
 
 
